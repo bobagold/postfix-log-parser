@@ -1,0 +1,13 @@
+{
+    "name": "bobagold/postfix-log-parser",
+    "description": "Parser for log files of Postfix MTA",
+    "authors": [
+        {
+            "name": "Vladimir Goldobin",
+            "email": "vgold@xiag.ch"
+        }
+    ],
+    "require": {
+
+    }
+}
