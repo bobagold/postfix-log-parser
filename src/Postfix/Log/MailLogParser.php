@@ -40,6 +40,25 @@ class MailLogParser
         $this->logFiles = new PostfixLogFiles();
     }
 
+    public static function format2regexp($string)
+    {
+        return str_replace(
+            array(
+                '%s',
+                '%d',
+                '%x',
+                '%c'
+            ),
+            array(
+                '(\w+)',
+                '(\d+)',
+                '([0-9a-fA-F]+)',
+                '(.)'
+            ),
+            $string
+        );
+    }
+
     public function status($line)
     {
         $columns = explode(': ', $line, 3);
@@ -62,22 +81,7 @@ class MailLogParser
 
     public static function createPatternFromFormat($string)
     {
-        $string = str_replace(
-            array(
-                '%s',
-                '%d',
-                '%x',
-                '%c'
-            ),
-            array(
-                '(\w+)',
-                '(\d+)',
-                '([0-9a-fA-F]+)',
-                '(.)'
-            ),
-            preg_quote($string, '/')
-        );
-        return '/^' . $string . '/';
+        return '/^' . self::format2regexp(preg_quote($string, '/')) . '/';
     }
 
     public function search(array $params)
